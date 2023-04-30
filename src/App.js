@@ -59,7 +59,7 @@ const App = () => {
   return (
     <div className="parent">
       <div className="imgContainer">
-        <img src={img}></img>
+        <img src={img} alt="allison"></img>
       </div>
       <div className="formContainer">
         {submitted && (
@@ -102,7 +102,7 @@ const App = () => {
               id="email"
               {...register("email", {
                 required: "Email Address is required",
-                pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+              // pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
               })}
               aria-invalid={errors.email ? "true" : "false"}
             />
