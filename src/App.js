@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { nanoid } from "nanoid";
 import img from "./img.png"
@@ -13,9 +13,14 @@ const App = () => {
     reset,
   } = useForm();
 
-  const [apiError, setApiError] = useState(null);
+  const [apiError, setApiError] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
+const resetState = (state)=>{
+  setTimeout(()=>{
+    state(false)
+  }, 5000)
+}
   const onSubmit = () => {
     const data = {
       id: nanoid(),
@@ -39,17 +44,21 @@ const App = () => {
         return Response.json();
       })
       .then((submitted) => {
-        setSubmitted(submitted);
-        setApiError(null);
+        setSubmitted(true);
+        // setApiError(null);
+        resetState(setSubmitted)
+        // setTimeout(()=>{
+        //   setSubmitted(false)
+        // }, 5000)
         reset();
       })
       .catch((apiError) => {
-        setApiError(apiError);
-        setSubmitted(false);
+        setApiError(true);
+        // setSubmitted(false);
+        resetState(setApiError)
       });
-    console.log(data);
 
-    return new Promise((resolve) => {
+    return new Promise((resolve) => { // what is this for?
       setTimeout(() => {
         resolve();
       }, 4000);
